@@ -7,6 +7,12 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/abc', function(req, res) {
+  res.send({
+    req
+  })
+})
+
 app.post('/', function(req, res) {
   res.send({
     "Output": "Hello World!"

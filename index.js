@@ -1,7 +1,7 @@
 'use strict';
 
-const awsServerlessExpress = require('aws-serverless-express')
+const cloudToDoServerlessExpress = require('aws-serverless-express')
 const app = require('./app')
-const server = awsServerlessExpress.createServer(app)
+const server = cloudToDoServerlessExpress.createServer(app)
 
-exports.handler = (event, context) => awsServerlessExpress.proxy(server, event, context);
+exports.handler = (event, context) => cloudToDoServerlessExpress.proxy(server, event, context);
