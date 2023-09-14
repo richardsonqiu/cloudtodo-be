@@ -27,7 +27,7 @@ Resources:
   CreateTask:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-HelloWorld'
+      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-CreateTask'
       Handler: functions/task/create-task.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
