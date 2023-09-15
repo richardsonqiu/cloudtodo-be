@@ -2,7 +2,7 @@
 const uuid = require('uuid');
 const AWS = require('aws-sdk');
 
-const dynamoDb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = (event, context, callback) => {
     // const data = JSON.parse(event.body);
