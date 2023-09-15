@@ -15,10 +15,11 @@ module.exports.handler = (event, context, callback) => {
             ':s_d': {S: data.start_date},
             ':e_d': {S: data.end_date}
         },
-        KeyConditionExpression: 'keyword = :kw and is_done = :i_d and start_date >= :s_d and end_date <= :e_d',
+        FilterExpression: 'contains (keyword, :kw)',
+        KeyConditionExpression: 'is_done = :i_d and start_date >= :s_d and end_date <= :e_d',
     }
 
-    dynamoDb.get(params, (error, result) => {
+    dynamoDb.query(params, (error, result) => {
         if (error) {
             console.error(error);
             callback(null, {

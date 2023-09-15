@@ -15,7 +15,7 @@ module.exports.handler = (event, context, callback) => {
         KeyConditionExpression: 'id = :id',
     }
 
-    dynamoDb.get(params, (error, result) => {
+    dynamoDb.query(params, (error, result) => {
         if (error) {
             console.error(error);
             console.error(event);
@@ -23,7 +23,7 @@ module.exports.handler = (event, context, callback) => {
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: 'Couldn\'t get any tasks.',
+                body: 'Couldn\'t get the specific task.',
               });
               return;
         }
