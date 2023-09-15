@@ -15,7 +15,7 @@ module.exports.handler = (event, context, callback) => {
             ':s_d': {S: data.start_date},
             ':e_d': {S: data.end_date}
         },
-        FilterExpression: 'contains (keyword, :kw)',
+        FilterExpression: 'contains (title, :kw)',
         KeyConditionExpression: 'is_done = :i_d and start_date >= :s_d and end_date <= :e_d',
     }
 
