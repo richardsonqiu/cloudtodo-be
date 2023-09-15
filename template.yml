@@ -44,30 +44,46 @@ Resources:
           Properties:
             Path: /create
             Method: post
-  # HelloWorld:
-  #   Type: AWS::Serverless::Function
-  #   Properties:
-  #     FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-HelloWorld'
-  #     Handler: index.handler
-  #     Runtime: nodejs16.x
-  #     Environment:
-  #       Variables:
-  #         NODE_ENV: production
-  #     Role:
-  #       Fn::GetAtt:
-  #       - LambdaExecutionRole
-  #       - Arn
-  #     Events:
-  #       GetEvent:
-  #         Type: Api
-  #         Properties:
-  #           Path: /
-  #           Method: get
-  #       PostEvent:
-  #         Type: Api
-  #         Properties:
-  #           Path: /
-  #           Method: post
+  GetTasks:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetTasks'
+      Handler: functions/task/get-tasks.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /tasks
+            Method: get
+  GetTask:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetTask'
+      Handler: functions/task/get-task.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /task/{id}
+            Method: get
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role

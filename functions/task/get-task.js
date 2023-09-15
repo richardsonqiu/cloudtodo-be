@@ -5,34 +5,32 @@ const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 module.exports.handler = (event, context, callback) => {
-    const timestamp = new Date().getTime();
-    const data = JSON.parse(event.body);
+    // const data = JSON.parse(event.body);
 
     const params = {
         TableName: 'Task',
-        Item: {
-            id: uuid.v4(),
-            title: data.title,
-            create_date: timestamp,
-            is_done: false,
-            todos: []
-        }
+        ExpressionAttributeValues: {
+            ':id': {S: event.pathParameters.id}
+        },
+        KeyConditionExpression: 'id = :id',
     }
 
-    dynamoDb.put(params, (error) => {
+    dynamoDb.get(params, (error, result) => {
         if (error) {
             console.error(error);
+            console.error(event);
+            console.error(event.pathParameters);
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: 'Couldn\'t create the task.',
+                body: 'Couldn\'t get any tasks.',
               });
               return;
         }
         
         const response = {
             statusCode: 200,
-            body: JSON.stringify(params.Item)
+            body: JSON.stringify(result.Item)
         };
         callback(null, response);
     });
