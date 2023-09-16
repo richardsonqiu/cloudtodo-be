@@ -1,0 +1,21 @@
+{
+    "title": "Do your task",
+    "project_id": "project_id_A",
+    "is_done": false,
+    "todos": [
+        {
+            "title": "My todo 1",
+            "due_date": "2023-09-18T13:05:17.915Z",
+            "assign_user": "1d46caad-7d4d-46ae-8667-fb8e89fe76de",
+            "is_done": false,
+            "description": "This is my todo 1 description"
+        },
+        {
+            "title": "My todo 2",
+            "due_date": "2023-09-19T13:05:17.915Z",
+            "assign_user": "1d46caad-7d4d-46ae-8667-fb8e89fe76de",
+            "is_done": true,
+            "description": "This is my todo 2 description"
+        }
+    ]
+}

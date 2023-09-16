@@ -14,10 +14,8 @@ module.exports.handler = (event, context, callback) => {
             id: uuid.v4(),
             title: data.title,
             create_date: create_date,
-            start_date: '',
-            end_date: '',
             is_done: false,
-            todos: null
+            todos: data.todos
         }
     }
 
