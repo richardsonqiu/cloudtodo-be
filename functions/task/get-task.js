@@ -9,10 +9,9 @@ module.exports.handler = (event, context, callback) => {
 
     const params = {
         TableName: 'Task',
-        ExpressionAttributeValues: {
-            ':id': {S: event.pathParameters.id}
-        },
-        KeyConditionExpression: 'id = :id',
+        Key: {
+            id: event.pathParameters.id,
+        }
     }
 
     dynamoDb.query(params, (error, result) => {
@@ -27,7 +26,7 @@ module.exports.handler = (event, context, callback) => {
               });
               return;
         }
-        
+        console.log(result);
         const response = {
             statusCode: 200,
             body: JSON.stringify(result.Item)

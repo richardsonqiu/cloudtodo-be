@@ -5,7 +5,7 @@ const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = (event, context, callback) => {
-    const timestamp = new Date().getTime();
+    const create_date = new Date().toISOString();
     const data = JSON.parse(event.body);
 
     const params = {
@@ -13,11 +13,11 @@ module.exports.handler = (event, context, callback) => {
         Item: {
             id: uuid.v4(),
             title: data.title,
-            create_date: timestamp,
+            create_date: create_date,
             start_date: '',
             end_date: '',
             is_done: false,
-            todos: []
+            todos: null
         }
     }
 

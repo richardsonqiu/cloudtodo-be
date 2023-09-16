@@ -10,13 +10,13 @@ module.exports.handler = (event, context, callback) => {
     const params = {
         TableName: 'Task',
         ExpressionAttributeValues: {
-            ':kw': {S: data.keyword},
-            ':i_d': {BOOL: data.is_done},
-            ':s_d': {S: data.start_date},
-            ':e_d': {S: data.end_date}
+            ":keyword": {S: data.keyword},
+            ":is_done": {BOOL: data.is_done},
+            ":start_date": {S: data.start_date},
+            ":end_date": {S: data.end_date}
         },
-        FilterExpression: 'contains (title, :kw)',
-        KeyConditionExpression: 'is_done = :i_d and start_date >= :s_d and end_date <= :e_d',
+        FilterExpression: "contains (title, :keyword)",
+        KeyConditionExpression: "is_done = :is_done and start_date >= :start_date and end_date <= :end_date",
     }
 
     dynamoDb.query(params, (error, result) => {
