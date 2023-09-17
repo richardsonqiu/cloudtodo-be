@@ -9,20 +9,56 @@ module.exports.handler = (event, context, callback) => {
   const data = JSON.parse(event.body);
 
   // Task validation
-  if (typeof data.project_id !== 'string' 
-        || typeof data.title !== 'string' 
-        || typeof data.create_date !== 'string' 
-        || typeof data.is_done !== 'boolean'
-        || typeof data.todos !== 'object' 
-        ) {
-    console.error('Validation Failed');
+  if (typeof data.project_id !== 'string') {
+    console.error('Validation Project ID Failed');
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t update the task item. There is an error in the task item.',
+      body: 'Couldn\'t update the task item. There is an error in the task\'s project id .',
     });
     return;
   }
+
+  if (typeof data.title !== 'string') {
+    console.error('Validation Project ID Failed');
+    callback(null, {
+      statusCode: 400,
+      headers: { 'Content-Type': 'text/plain' },
+      body: 'Couldn\'t update the task item. There is an error in the task\'s title .',
+    });
+    return;
+  }
+
+  if (typeof data.create_date !== 'string') {
+    console.error('Validation Project ID Failed');
+    callback(null, {
+      statusCode: 400,
+      headers: { 'Content-Type': 'text/plain' },
+      body: 'Couldn\'t update the task item. There is an error in the task\'s create_date .',
+    });
+    return;
+  }
+
+  if (typeof data.is_done !== 'boolean') {
+    console.error('Validation Project ID Failed');
+    callback(null, {
+      statusCode: 400,
+      headers: { 'Content-Type': 'text/plain' },
+      body: 'Couldn\'t update the task item. There is an error in the task\'s title .',
+    });
+    return;
+  }
+
+  if (typeof data.todos !== 'object') {
+    console.error('Validation Project ID Failed');
+    callback(null, {
+      statusCode: 400,
+      headers: { 'Content-Type': 'text/plain' },
+      body: 'Couldn\'t update the task item. There is an error in the task\'s title .',
+    });
+    return;
+  }
+
 
   const params = {
     TableName: 'Task',
