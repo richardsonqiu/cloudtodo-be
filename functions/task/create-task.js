@@ -9,9 +9,11 @@ module.exports.handler = (event, context, callback) => {
     const data = JSON.parse(event.body);
 
     // Task and Todo 
-    const todos = JSON.parse(data.todos);
+    const todos = data.todos;
+    console.log(todos);
     if (todos && Array.isArray(todos)) {
         todos.forEach((todo) => {
+            console.log("todo " + todo);
             if (!todo.id)
                 todo.id = uuid.v4();
 
