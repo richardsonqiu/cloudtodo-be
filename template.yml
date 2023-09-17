@@ -42,7 +42,7 @@ Resources:
         PostEvent:
           Type: Api
           Properties:
-            Path: /create
+            Path: /projects/{projectId}/tasks
             Method: post
   GetTasks:
     Type: AWS::Serverless::Function
@@ -62,7 +62,7 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /tasks
+            Path: /projects/{projectId}/tasks
             Method: get
   GetTask:
     Type: AWS::Serverless::Function
@@ -82,7 +82,7 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /task/{id}
+            Path: /projects/{projectId}/tasks/{taskId}
             Method: get
   UpdateTask:
     Type: AWS::Serverless::Function
@@ -102,7 +102,87 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /task/{id}
+            Path: /projects/{projectId}/tasks/{taskId}
+            Method: put
+  CreateProject:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-CreateProject'
+      Handler: functions/project/create-project.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Events:
+        PostEvent:
+          Type: Api
+          Properties:
+            Path: /projects
+            Method: post
+  GetProjects:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetProjecs'
+      Handler: functions/task/get-projects.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects
+            Method: get
+  GetProject:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetProject'
+      Handler: functions/task/get-project.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}
+            Method: get
+  UpdateProject:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-UpdateProject'
+      Handler: functions/task/update-project.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}
             Method: put
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda

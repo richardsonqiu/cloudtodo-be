@@ -26,7 +26,7 @@ module.exports.handler = (event, context, callback) => {
         TableName: "Task",
         Item: {
             id: uuid.v4(),
-            title: data?.title || null,
+            title: data?.title,
             create_date: create_date,
             is_done: false,
             todos: todos || null,

@@ -10,7 +10,7 @@ module.exports.handler = (event, context, callback) => {
 
   // Task validation
   if (typeof data.project_id !== 'string') {
-    console.error('Validation Project ID Failed');
+    console.error('Validation Task project_id Failed');
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
@@ -20,7 +20,7 @@ module.exports.handler = (event, context, callback) => {
   }
 
   if (typeof data.title !== 'string') {
-    console.error('Validation Project ID Failed');
+    console.error('Validation Task\'s title Failed');
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
@@ -29,8 +29,8 @@ module.exports.handler = (event, context, callback) => {
     return;
   }
 
-  if (typeof data.create_date !== 'string') {
-    console.error('Validation Project ID Failed');
+  if (typeof data.create_date !== 'datetime') {
+    console.error('Validation Task\'s create_date Failed');
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
@@ -40,30 +40,33 @@ module.exports.handler = (event, context, callback) => {
   }
 
   if (typeof data.is_done !== 'boolean') {
-    console.error('Validation Project ID Failed');
+    console.error('Validation Task\'s is_done Failed');
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t update the task item. There is an error in the task\'s title .',
+      body: 'Couldn\'t update the task item. There is an error in the task\'s is_done .',
     });
     return;
   }
 
   if (typeof data.todos !== 'object') {
-    console.error('Validation Project ID Failed');
+    console.error('Validation Task\'s todos Failed');
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t update the task item. There is an error in the task\'s title .',
+      body: 'Couldn\'t update the task item. There is an error in the task\'s todos .',
     });
     return;
   }
+
+  // TODO: update task's is_done to true if all todos' is_done are true
 
 
   const params = {
     TableName: 'Task',
     Key: {
-      id: event.pathParameters.id,
+      id: event.pathParameters.taskId,
+      project_id: event.pathParameters.projectId,
     },
     ExpressionAttributeValues: {
       ':project_id': data.project_id,

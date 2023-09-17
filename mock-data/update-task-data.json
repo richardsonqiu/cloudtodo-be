@@ -1,0 +1,26 @@
+{
+    "create_date": "2023-09-17T09:47:25.126Z",
+    "is_done": false,
+    "project_id": "project_id_B",
+    "title": "Do your thing",
+    "todos": [
+     {
+      "id": "0b7c8ec1-aecd-4fdd-88ba-1cd33fe16423",
+      "assign_user": "1d46caad-7d4d-46ae-8667-fb8e89fe76de",
+      "create_date": "2023-09-17T09:47:25.126Z",
+      "description": "This is my todo 1B description",
+      "due_date": "2023-09-18T13:05:17.915Z",
+      "is_done": true,
+      "title": "My todo 1B"
+     },
+     {
+      "id": "516c4c1a-a28a-4e75-845a-35f7c101f9bb",
+      "assign_user": "1d46caad-7d4d-46ae-8667-fb8e89fe76de",
+      "create_date": "2023-09-17T09:47:25.126Z",
+      "description": "This is my todo 2B description",
+      "due_date": "2023-09-19T13:05:17.915Z",
+      "is_done": true,
+      "title": "My todo 2B"
+     }
+    ]
+   }

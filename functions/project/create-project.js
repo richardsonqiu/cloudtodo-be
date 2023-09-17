@@ -5,31 +5,33 @@ const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = (event, context, callback) => {
-    // const data = JSON.parse(event.body);
+    const create_date = new Date().toISOString();
+    const data = JSON.parse(event.body);
 
     const params = {
-        TableName: 'Task',
-        Key: {
-            id: event.pathParameters.taskId
+        TableName: "Project",
+        Item: {
+            id: uuid.v4(),
+            name: data?.name,
+            create_date: create_date,
+            members: data?.members,
         }
     }
 
-    dynamoDb.get(params, (error, result) => {
+    dynamoDb.put(params, (error) => {
         if (error) {
             console.error(error);
-            console.error(event);
-            console.error(event.pathParameters);
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: 'Couldn\'t get the specific task.',
+                body: 'Couldn\'t create the project.',
               });
               return;
         }
-        console.log(result);
+        
         const response = {
             statusCode: 200,
-            body: JSON.stringify(result.Item)
+            body: JSON.stringify(params.Item)
         };
         callback(null, response);
     });
