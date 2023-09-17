@@ -1,0 +1,27 @@
+{
+  "is_done": false,
+  "todos": [
+    {
+      "is_done": false,
+      "due_date": "2023-09-18T13:05:17.915Z",
+      "description": "This is my todo 1 description",
+      "id": "0b7c8ec1-aecd-4fdd-88ba-1cd33fe16423",
+      "title": "My todo 1",
+      "assign_user": "1d46caad-7d4d-46ae-8667-fb8e89fe76de",
+      "create_date": "2023-09-17T09:47:25.126Z"
+    },
+    {
+      "is_done": true,
+      "due_date": "2023-09-19T13:05:17.915Z",
+      "description": "This is my todo 2 description",
+      "id": "516c4c1a-a28a-4e75-845a-35f7c101f9bb",
+      "title": "My todo 2",
+      "assign_user": "1d46caad-7d4d-46ae-8667-fb8e89fe76de",
+      "create_date": "2023-09-17T09:47:25.126Z"
+    }
+  ],
+  "project_id": "project_id_A",
+  "id": "04fb8bcf-9b8e-456e-9f51-698f55a2647f",
+  "create_date": "2023-09-17T09:47:25.126Z",
+  "title": "Do your task"
+}

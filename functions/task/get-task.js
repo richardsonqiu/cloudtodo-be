@@ -9,13 +9,9 @@ module.exports.handler = (event, context, callback) => {
 
     const params = {
         TableName: 'Task',
-        // ExpressionAttributeValues: {
-        //     ':id': {S: event.pathParameters.id}
-        // },
         Key: {
             id: event.pathParameters.id
         }
-        // KeyConditionExpression: 'id = :id',
     }
 
     dynamoDb.get(params, (error, result) => {
