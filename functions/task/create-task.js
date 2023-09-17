@@ -8,14 +8,27 @@ module.exports.handler = (event, context, callback) => {
     const create_date = new Date().toISOString();
     const data = JSON.parse(event.body);
 
+    // Task and Todo 
+    const todos = JSON.parse(data.todos);
+    if (todos && Array.isArray(todos)) {
+        todos.forEach((todo) => {
+            if (!todo.id)
+                todo.id = uuid.v4();
+
+            if (!todo.create_date)
+                todo.create_date = create_date;
+        })
+    }
+
     const params = {
-        TableName: 'Task',
+        TableName: "Task",
         Item: {
             id: uuid.v4(),
-            title: data.title,
+            title: data?.title || null,
             create_date: create_date,
             is_done: false,
-            todos: data.todos
+            todos: todos || null,
+            project_id: data?.project_id || null
         }
     }
 
