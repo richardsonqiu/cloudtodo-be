@@ -128,7 +128,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetProjecs'
-      Handler: functions/task/get-projects.handler
+      Handler: functions/project/get-projects.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
       Environment:
@@ -148,7 +148,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetProject'
-      Handler: functions/task/get-project.handler
+      Handler: functions/project/get-project.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
       Environment:
@@ -168,7 +168,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-UpdateProject'
-      Handler: functions/task/update-project.handler
+      Handler: functions/project/update-project.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
       Environment:
