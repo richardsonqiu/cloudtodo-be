@@ -8,38 +8,6 @@ module.exports.handler = (event, context, callback) => {
   const timestamp = new Date().toISOString();
   const data = JSON.parse(event.body);
 
-  // Project validation
-  if (typeof data.name !== 'string') {
-    console.error('Validation Project name Failed');
-    callback(null, {
-      statusCode: 400,
-      headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t update the project. There is an error in the project\'s name .',
-    });
-    return;
-  }
-
-  if (typeof data.create_date !== 'datetime') {
-    console.error('Validation Project create_date Failed');
-    callback(null, {
-      statusCode: 400,
-      headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t update the project. There is an error in the project\'s create_date .',
-    });
-    return;
-  }
-
-  if (typeof data.members !== 'object') {
-    console.error('Validation Project members Failed');
-    callback(null, {
-      statusCode: 400,
-      headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t update the project. There is an error in the project\'s members .',
-    });
-    return;
-  }
-
-
   const params = {
     TableName: 'Project',
     Key: {
