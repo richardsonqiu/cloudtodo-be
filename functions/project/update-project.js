@@ -14,12 +14,12 @@ module.exports.handler = (event, context, callback) => {
       project_id: event.pathParameters.projectId,
     },
     ExpressionAttributeValues: {
-      ':title': data.title,
+      ':name': data.name,
       ':create_date': data.create_date,
       ':members': data.members,
       ':updated_date': timestamp,
     },
-    UpdateExpression: 'SET title = :title, create_date = :create_date, members = :members, updated_date = :updated_date',
+    UpdateExpression: 'SET name = :name, create_date = :create_date, members = :members, updated_date = :updated_date',
     ReturnValues: 'ALL_NEW',
   };
 
@@ -31,7 +31,7 @@ module.exports.handler = (event, context, callback) => {
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: 'Couldn\'t fetch the project.',
+        body: 'Couldn\'t update the project.',
       });
       return;
     }
