@@ -84,6 +84,26 @@ Resources:
           Properties:
             Path: /projects/{projectId}/tasks/{taskId}
             Method: get
+  GetSearchTask:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetSearchTask'
+      Handler: functions/task/get-search-task.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks/search
+            Method: get
   UpdateTask:
     Type: AWS::Serverless::Function
     Properties:

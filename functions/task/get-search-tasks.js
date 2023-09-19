@@ -10,16 +10,16 @@ module.exports.handler = (event, context, callback) => {
     const params = {
         TableName: 'Task',
         ExpressionAttributeValues: {
-            ":keyword": {S: data.keyword},
-            ":is_done": {BOOL: data.is_done},
-            ":start_date": {S: data.start_date},
-            ":end_date": {S: data.end_date}
+            ":keyword": {S: data.keyword}
         },
-        FilterExpression: "contains (title, :keyword)",
-        KeyConditionExpression: "is_done = :is_done and start_date >= :start_date and end_date <= :end_date",
+        ExpressionAttributeNames: {
+            ":todo_title": "todos[0].title",
+            ":title": "title"
+        },
+        FilterExpression: "contains (todo_title, :keyword) or (title, :keyword)"
     }
 
-    dynamoDb.query(params, (error, result) => {
+    dynamoDb.scan(params, (error, result) => {
         if (error) {
             console.error(error);
             callback(null, {
@@ -30,6 +30,12 @@ module.exports.handler = (event, context, callback) => {
               return;
         }
         
+        const items = data.Items;
+        if (items && items.length > 0)
+            items.forEach((item) => console.log(item));
+        else 
+            console.log("No matching task or todo found.");   
+             
         const response = {
             statusCode: 200,
             body: JSON.stringify(result.Items)
