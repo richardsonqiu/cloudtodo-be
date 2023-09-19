@@ -99,11 +99,11 @@ Resources:
         - LambdaExecutionRole
         - Arn
       Events:
-        PostEvent:
+        GetEvent:
           Type: Api
           Properties:
-            Path: /projects/{projectId}/tasks/search
-            Method: post
+            Path: /projects/{projectId}/tasks/search?keyword={keyword}
+            Method: get
   UpdateTask:
     Type: AWS::Serverless::Function
     Properties:
