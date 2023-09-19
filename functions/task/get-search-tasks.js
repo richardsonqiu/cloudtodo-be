@@ -14,10 +14,6 @@ module.exports.handler = (event, context, callback) => {
             ":keyword": {S: keyword},
             ":project_id": {S: projectId}
         },
-        ExpressionAttributeNames: {
-            ":title": "title",
-            ":project_id": "project_id"
-        },
         FilterExpression: "CONTAINS (title, :keyword) AND project_id = :project_id"
     }
 
