@@ -102,7 +102,7 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /projects/{projectId}/tasks/search?keyword={keyword}
+            Path: /projects/{projectId}/tasks/search
             Method: get
   UpdateTask:
     Type: AWS::Serverless::Function

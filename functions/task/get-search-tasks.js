@@ -6,16 +6,19 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = (event, context, callback) => {
     const keyword = event.pathParameters.keyword;
+    const projectId = event.pathParameters.projectId;
 
     const params = {
         TableName: 'Task',
         ExpressionAttributeValues: {
-            ":keyword": {S: keyword}
+            ":keyword": {S: keyword},
+            ":project_id": {S: projectId}
         },
         ExpressionAttributeNames: {
-            ":title": "title"
+            ":title": "title",
+            ":project_id": "project_id"
         },
-        FilterExpression: "contains (title, :keyword)"
+        FilterExpression: "CONTAINS (title, :keyword) AND project_id = :project_id"
     }
 
     dynamoDb.scan(params, (error, result) => {
