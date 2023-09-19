@@ -29,12 +29,16 @@ module.exports.handler = (event, context, callback) => {
         }
         
         const tasks = result.Items;
+        console.log("Before todo filtering: " + tasks);
         tasks.forEach((task) => {
             if (task.todos && Array.isArray(task.todos)) {
+                console.log("current todos: " + task.todos);
                 task.todos = task.todos.filter((todo) => todo.title.includes(keyword))
+                console.log("updated todos: ", task.todos);
             }
         })
 
+        console.log("After todo filtering: " + tasks);
         const response = {
             statusCode: 200,
             body: JSON.stringify(tasks)
