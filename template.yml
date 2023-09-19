@@ -88,7 +88,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetSearchTask'
-      Handler: functions/task/get-search-task.handler
+      Handler: functions/task/get-search-tasks.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
       Environment:
