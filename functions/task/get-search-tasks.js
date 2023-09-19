@@ -5,8 +5,11 @@ const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = (event, context, callback) => {
-    const keyword = event.pathParameters.keyword;
+    const keyword = event.queryStringParameters.keyword;
     const projectId = event.pathParameters.projectId;
+
+    console.log("keyword: " + keyword);
+    console.log("project id: " + projectId);
 
     const params = {
         TableName: 'Task',
