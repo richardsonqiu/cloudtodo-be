@@ -14,10 +14,10 @@ module.exports.handler = (event, context, callback) => {
     const params = {
         TableName: 'Task',
         ExpressionAttributeValues: {
-            ":keyword": {S: keyword},
-            ":project_id": {S: projectId}
+            ":keyword": keyword,
+            ":project_id": projectId
         },
-        FilterExpression: "project_id = :project_id"
+        FilterExpression: "contains(title, :keyword) AND project_id = :project_id"
     }
 
     dynamoDb.scan(params, (error, result) => {
