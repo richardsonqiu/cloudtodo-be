@@ -17,7 +17,7 @@ module.exports.handler = (event, context, callback) => {
             ":keyword": {S: keyword},
             ":project_id": {S: projectId}
         },
-        FilterExpression: "contains(title, :keyword) AND project_id = :project_id"
+        FilterExpression: "project_id = :project_id"
     }
 
     dynamoDb.scan(params, (error, result) => {
