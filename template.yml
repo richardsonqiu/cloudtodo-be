@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform:
-- AWS::Serverless-2016-10-31
-- AWS::CodeStar
+  - AWS::Serverless-2016-10-31
+  - AWS::CodeStar
 
 Parameters:
   ProjectId:
@@ -13,7 +13,7 @@ Parameters:
   Stage:
     Type: String
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
-    Default: ''
+    Default: ""
 
 Globals:
   Function:
@@ -22,12 +22,17 @@ Globals:
       Enabled: true
       Type: Canary10Percent5Minutes
       Role: !Ref CodeDeployRole
+  Api:
+    Cors:
+      AllowMethods: "'GET,POST,OPTIONS'"
+      AllowHeaders: "'content-type'"
+      AllowOrigin: "'*'"
 
 Resources:
   CreateTask:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-CreateTask'
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-CreateTask"
       Handler: functions/task/create-task.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
@@ -36,8 +41,8 @@ Resources:
           NODE_ENV: production
       Role:
         Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+          - LambdaExecutionRole
+          - Arn
       Events:
         PostEvent:
           Type: Api
@@ -47,7 +52,7 @@ Resources:
   GetTasks:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetTasks'
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetTasks"
       Handler: functions/task/get-tasks.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
@@ -56,8 +61,8 @@ Resources:
           NODE_ENV: production
       Role:
         Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+          - LambdaExecutionRole
+          - Arn
       Events:
         GetEvent:
           Type: Api
@@ -67,7 +72,7 @@ Resources:
   GetTask:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetTask'
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetTask"
       Handler: functions/task/get-task.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
@@ -76,8 +81,8 @@ Resources:
           NODE_ENV: production
       Role:
         Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+          - LambdaExecutionRole
+          - Arn
       Events:
         GetEvent:
           Type: Api
@@ -87,7 +92,7 @@ Resources:
   GetSearchTask:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetSearchTask'
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetSearchTask"
       Handler: functions/task/get-search-tasks.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
@@ -96,8 +101,8 @@ Resources:
           NODE_ENV: production
       Role:
         Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+          - LambdaExecutionRole
+          - Arn
       Events:
         GetEvent:
           Type: Api
@@ -107,7 +112,7 @@ Resources:
   UpdateTask:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-UpdateTask'
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-UpdateTask"
       Handler: functions/task/update-task.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
@@ -116,8 +121,8 @@ Resources:
           NODE_ENV: production
       Role:
         Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+          - LambdaExecutionRole
+          - Arn
       Events:
         GetEvent:
           Type: Api
@@ -127,7 +132,7 @@ Resources:
   CreateProject:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-CreateProject'
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-CreateProject"
       Handler: functions/project/create-project.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
@@ -136,8 +141,8 @@ Resources:
           NODE_ENV: production
       Role:
         Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+          - LambdaExecutionRole
+          - Arn
       Events:
         PostEvent:
           Type: Api
@@ -147,7 +152,7 @@ Resources:
   GetProjects:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetProjecs'
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetProjecs"
       Handler: functions/project/get-projects.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
@@ -156,8 +161,8 @@ Resources:
           NODE_ENV: production
       Role:
         Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+          - LambdaExecutionRole
+          - Arn
       Events:
         GetEvent:
           Type: Api
@@ -167,7 +172,7 @@ Resources:
   GetProject:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-GetProject'
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetProject"
       Handler: functions/project/get-project.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
@@ -176,8 +181,8 @@ Resources:
           NODE_ENV: production
       Role:
         Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+          - LambdaExecutionRole
+          - Arn
       Events:
         GetEvent:
           Type: Api
@@ -187,7 +192,7 @@ Resources:
   UpdateProject:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-UpdateProject'
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-UpdateProject"
       Handler: functions/project/update-project.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
@@ -196,8 +201,8 @@ Resources:
           NODE_ENV: production
       Role:
         Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
+          - LambdaExecutionRole
+          - Arn
       Events:
         GetEvent:
           Type: Api
@@ -208,14 +213,14 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${ProjectId}-Execution${Stage}'
+      RoleName: !Sub "CodeStar-${ProjectId}-Execution${Stage}"
       AssumeRolePolicyDocument:
         Statement:
-        - Effect: Allow
-          Principal:
-            Service: [lambda.amazonaws.com]
-          Action: sts:AssumeRole
+          - Effect: Allow
+            Principal:
+              Service: [lambda.amazonaws.com]
+            Action: sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
-      PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
+        - !Sub "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      PermissionsBoundary: !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary"
