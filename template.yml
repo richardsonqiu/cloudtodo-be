@@ -22,12 +22,6 @@ Globals:
       Enabled: true
       Type: Canary10Percent5Minutes
       Role: !Ref CodeDeployRole
-  Api:
-    Cors:
-      AllowMethods: "GET,POST,OPTIONS"
-      AllowHeaders: "content-type"
-      AllowOrigin: "*"
-
 Resources:
   CreateTask:
     Type: AWS::Serverless::Function
@@ -213,7 +207,7 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub "CodeStar-${ProjectId}-Execution${Stage}"
+      RoleName: !Sub "Lambda-${ProjectId}-Execution${Stage}"
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
