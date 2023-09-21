@@ -24,9 +24,9 @@ Globals:
       Role: !Ref CodeDeployRole
   Api:
     Cors:
-      AllowMethods: "'GET,POST,OPTIONS'"
-      AllowHeaders: "'content-type'"
-      AllowOrigin: "'*'"
+      AllowMethods: "GET,POST,OPTIONS"
+      AllowHeaders: "content-type"
+      AllowOrigin: "*"
 
 Resources:
   CreateTask:
