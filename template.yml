@@ -25,7 +25,7 @@ Globals:
   Api:
     Cors:
       AllowMethods: "'GET,POST,OPTIONS'"
-      AllowHeaders: "'content-type'"
+      AllowHeaders: "'Authorization,content-type'"
       AllowOrigin: "'*'"
 Resources:
   CreateTask:
