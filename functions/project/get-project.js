@@ -29,7 +29,7 @@ module.exports.handler = (event, context, callback) => {
             headers: {
                 "Access-Control-Allow-Headers" : "Authorization,Content-Type",
                 "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+                "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT,DELETE"
             },
             body: JSON.stringify(result.Item)
         };
