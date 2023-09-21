@@ -207,7 +207,7 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub "Lambda-${ProjectId}-Execution${Stage}"
+      RoleName: !Sub "LambdaRole-${ProjectId}-Execution${Stage}"
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
