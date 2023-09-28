@@ -1,9 +1,12 @@
 'use-strict'
+const uuid = require('uuid');
 const AWS = require('aws-sdk');
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = (event, context, callback) => {
+    // const data = JSON.parse(event.body);
+
     const params = {
         TableName: 'Task',
         Key: {
@@ -23,7 +26,6 @@ module.exports.handler = (event, context, callback) => {
               });
               return;
         }
-
         console.log(result);
         const response = {
             statusCode: 200,

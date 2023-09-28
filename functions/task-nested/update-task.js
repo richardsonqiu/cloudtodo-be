@@ -8,17 +8,24 @@ module.exports.handler = (event, context, callback) => {
   const timestamp = new Date().toISOString();
   const data = JSON.parse(event.body);
 
+  // TODO: update task's is_done to true if all todos' is_done are true
+
+
   const params = {
     TableName: 'Task',
     Key: {
-      id: event.pathParameters.taskId
+      id: event.pathParameters.taskId,
+      project_id: event.pathParameters.projectId,
     },
     ExpressionAttributeValues: {
+      ':project_id': data.project_id,
       ':title': data.title,
+      ':create_date': data.create_date,
       ':is_done': data.is_done,
-      ':updated_date': timestamp
+      ':todos': data.todos,
+      ':updated_date': timestamp,
     },
-    UpdateExpression: 'SET title = :title, is_done = :is_done, updated_date = :updated_date',
+    UpdateExpression: 'SET project_id = :project_id, title = :title, create_date = :create_date, is_done = :is_done, todos = :todos, updated_date = :updated_date',
     ReturnValues: 'ALL_NEW',
   };
 

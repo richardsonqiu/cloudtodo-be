@@ -68,6 +68,26 @@ Resources:
           Properties:
             Path: /projects/{projectId}/tasks
             Method: get
+  GetTasksTodos:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetTasksTodos"
+      Handler: functions/task/get-tasks-todos.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks
+            Method: get
   GetTask:
     Type: AWS::Serverless::Function
     Properties:
@@ -128,6 +148,90 @@ Resources:
           Properties:
             Path: /projects/{projectId}/tasks/{taskId}
             Method: put
+
+
+  CreateTodo:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-CreateTodo"
+      Handler: functions/todo/create-todo.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        PostEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks/{taskId}/todos
+            Method: post
+  GetTodosByTask:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetTodosByTask"
+      Handler: functions/todo/get-todos-by-task.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks/{taskId}/todos
+            Method: get
+  GetTodo:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetTodo"
+      Handler: functions/todo/get-todo.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks/{taskId}/todos/{todoId}
+            Method: get
+  UpdateTodo:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-UpdateTodo"
+      Handler: functions/todo/update-todo.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks/{taskId}/todos/{todoId}
+            Method: put
+
+
   CreateProject:
     Type: AWS::Serverless::Function
     Properties:

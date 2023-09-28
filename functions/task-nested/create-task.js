@@ -9,6 +9,20 @@ module.exports.handler = (event, context, callback) => {
     const data = JSON.parse(event.body);
     const project_id = event.pathParameters.projectId;
 
+    // Task and Todo 
+    const todos = data.todos;
+    console.log(todos);
+    if (todos && Array.isArray(todos)) {
+        todos.forEach((todo) => {
+            console.log("todo " + todo);
+            if (!todo.id)
+                todo.id = uuid.v4();
+
+            if (!todo.create_date)
+                todo.create_date = create_date;
+        })
+    }
+
     const params = {
         TableName: "Task",
         Item: {
@@ -17,6 +31,7 @@ module.exports.handler = (event, context, callback) => {
             title: data?.title,
             create_date: create_date,
             is_done: false,
+            todos: todos || null
         }
     }
 

@@ -5,9 +5,9 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = (event, context, callback) => {
     const params = {
-        TableName: 'Task',
+        TableName: 'Todo',
         Key: {
-            id: event.pathParameters.taskId
+            id: event.pathParameters.todoId
         }
     }
 
@@ -19,7 +19,7 @@ module.exports.handler = (event, context, callback) => {
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: 'Couldn\'t get the specific task.',
+                body: 'Couldn\'t get the specific todo.',
               });
               return;
         }

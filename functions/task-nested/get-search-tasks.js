@@ -1,30 +1,36 @@
 'use-strict'
+const uuid = require('uuid');
 const AWS = require('aws-sdk');
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = (event, context, callback) => {
+    const keyword = event.queryStringParameters.keyword;
+    const projectId = event.pathParameters.projectId;
+
+    console.log("keyword: " + keyword);
+    console.log("project id: " + projectId);
+
     const params = {
         TableName: 'Task',
-        Key: {
-            id: event.pathParameters.taskId
-        }
+        ExpressionAttributeValues: {
+            ":keyword": keyword,
+            ":project_id": projectId
+        },
+        FilterExpression: "contains(title, :keyword) AND project_id = :project_id"
     }
 
-    dynamoDb.get(params, (error, result) => {
+    dynamoDb.scan(params, (error, result) => {
         if (error) {
             console.error(error);
-            console.error(event);
-            console.error(event.pathParameters);
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: 'Couldn\'t get the specific task.',
+                body: 'Couldn\'t get any tasks.',
               });
               return;
         }
 
-        console.log(result);
         const response = {
             statusCode: 200,
             headers: {
@@ -32,7 +38,7 @@ module.exports.handler = (event, context, callback) => {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT,DELETE"
             },
-            body: JSON.stringify(result.Item)
+            body: JSON.stringify(result.Items)
         };
         callback(null, response);
     });

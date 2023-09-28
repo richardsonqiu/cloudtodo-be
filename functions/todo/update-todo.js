@@ -9,16 +9,25 @@ module.exports.handler = (event, context, callback) => {
   const data = JSON.parse(event.body);
 
   const params = {
-    TableName: 'Task',
+    TableName: 'Todo',
     Key: {
-      id: event.pathParameters.taskId
+      id: event.pathParameters.todoId,
     },
     ExpressionAttributeValues: {
       ':title': data.title,
       ':is_done': data.is_done,
-      ':updated_date': timestamp
+      ':due_date': data?.due_date || null,
+      ':assign_username': data?.assign_username || null,
+      ':assign_email': data?.assign_email || null,
+      ':assign_name': data?.assign_name || null,
+      ':description': data?.description || null,
+      ':priority': data?.priority || null,
+      ':tag1': data?.tag1 || null,
+      ':tag2': data?.tag2 || null,
+      ':tag3': data?.tag3 || null,
+      ':updated_date': timestamp,
     },
-    UpdateExpression: 'SET title = :title, is_done = :is_done, updated_date = :updated_date',
+    UpdateExpression: 'SET title = :title, is_done = :is_done, due_date = :due_date, assign_username = :assign_username, assign_email = :assign_email, assign_name = :assign_name, description = :description, priority = :priority, tag1 = :tag1, tag2 = :tag2, tag3 = :tag3, updated_date = :updated_date',
     ReturnValues: 'ALL_NEW',
   };
 
@@ -30,7 +39,7 @@ module.exports.handler = (event, context, callback) => {
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: 'Couldn\'t fetch the task item.',
+        body: 'Couldn\'t fetch the todo item.',
       });
       return;
     }
