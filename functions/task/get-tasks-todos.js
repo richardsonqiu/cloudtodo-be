@@ -83,7 +83,7 @@ module.exports.handler = async (event, context, callback) => {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT,DELETE",
           },
-          body: JSON.stringify({ error: "Internal Server Error" }),
+          body: JSON.stringify({ error: `Internal Server Error: ${error}` }),
         };
     
         callback(null, response);
