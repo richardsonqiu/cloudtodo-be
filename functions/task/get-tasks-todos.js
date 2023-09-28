@@ -10,7 +10,8 @@ module.exports.handler = async (event, context, callback) => {
         // Step 1: Query the Task table to retrieve tasks for a specific projectId
         const taskQueryParams = {
         TableName: 'Task',
-        KeyConditionExpression: 'project_id = :projectId',
+        IndexName: "project_id-create_date-index",
+        KeyConditionExpression: "project_id = :projectId",
         ExpressionAttributeValues: {
             ':projectId': projectId,
         },
@@ -18,7 +19,7 @@ module.exports.handler = async (event, context, callback) => {
 
         const taskQueryResult = await dynamoDb.query(taskQueryParams).promise();
         const taskItems = taskQueryResult.Items;
-    
+        console.log(`taskitems: ${taskItems}`);
         // Step 2: Iterate over the Task items and retrieve associated todos
         const tasksWithTodosList = [];
     
@@ -34,7 +35,10 @@ module.exports.handler = async (event, context, callback) => {
     
           const todoResult = await dynamoDb.query(todoParams).promise();
           const todoItems = todoResult.Items;
-    
+          
+          console.log(`todoItems: ${todoItems}`);
+          
+          
           // Combine the data and add it to the result
           const taskWithTodos = {
             id: taskItem.id,
