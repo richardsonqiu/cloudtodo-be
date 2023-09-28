@@ -48,26 +48,26 @@ Resources:
           Properties:
             Path: /projects/{projectId}/tasks
             Method: post
-  GetTasks:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetTasks"
-      Handler: functions/task/get-tasks.handler
-      Runtime: nodejs16.x
-      Policies: AmazonDynamoDBFullAccess
-      Environment:
-        Variables:
-          NODE_ENV: production
-      Role:
-        Fn::GetAtt:
-          - LambdaExecutionRole
-          - Arn
-      Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /projects/{projectId}/tasks
-            Method: get
+  # GetTasks:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetTasks"
+  #     Handler: functions/task/get-tasks.handler
+  #     Runtime: nodejs16.x
+  #     Policies: AmazonDynamoDBFullAccess
+  #     Environment:
+  #       Variables:
+  #         NODE_ENV: production
+  #     Role:
+  #       Fn::GetAtt:
+  #         - LambdaExecutionRole
+  #         - Arn
+  #     Events:
+  #       GetEvent:
+  #         Type: Api
+  #         Properties:
+  #           Path: /projects/{projectId}/tasks
+  #           Method: get
   GetTasksTodos:
     Type: AWS::Serverless::Function
     Properties:
@@ -225,7 +225,7 @@ Resources:
           - LambdaExecutionRole
           - Arn
       Events:
-        GetEvent:
+        PutEvent:
           Type: Api
           Properties:
             Path: /projects/{projectId}/tasks/{taskId}/todos/{todoId}
