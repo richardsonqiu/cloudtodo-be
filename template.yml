@@ -148,7 +148,27 @@ Resources:
           Properties:
             Path: /projects/{projectId}/tasks/{taskId}
             Method: put
-
+  DeleteTask:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-DeleteTask"
+      Handler: functions/task/delete-task.handler
+      Runtime: nodejs16.x
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        DeleteEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks/{taskId}
+            Method: delete
 
   CreateTodo:
     Type: AWS::Serverless::Function
@@ -230,7 +250,27 @@ Resources:
           Properties:
             Path: /projects/{projectId}/tasks/{taskId}/todos/{todoId}
             Method: put
-
+  DeleteTodo:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-DeleteTodo"
+      Handler: functions/todo/delete-todo.handler
+      Runtime: nodejs16.x
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        DeleteEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks/{taskId}/todos/{todoId}
+            Method: delete
 
   CreateProject:
     Type: AWS::Serverless::Function
@@ -312,6 +352,28 @@ Resources:
           Properties:
             Path: /projects/{projectId}
             Method: put
+  DeleteProject:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-DeleteProject"
+      Handler: functions/project/delete-project.handler
+      Runtime: nodejs16.x
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        DeleteEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}
+            Method: delete
+
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role

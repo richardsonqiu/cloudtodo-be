@@ -15,11 +15,10 @@ module.exports.handler = (event, context, callback) => {
     },
     ExpressionAttributeValues: {
       ':name': data.name,
-      ':create_date': data.create_date,
       ':members': data.members,
       ':updated_date': timestamp,
     },
-    UpdateExpression: 'SET name = :name, create_date = :create_date, members = :members, updated_date = :updated_date',
+    UpdateExpression: 'SET name = :name, members = :members, updated_date = :updated_date',
     ReturnValues: 'ALL_NEW',
   };
 
