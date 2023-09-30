@@ -4,11 +4,13 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
   const todoId = event.pathParameters.todoId;
+  const taskId = event.pathParameters.taskId;
   
   const params = {
     TableName: 'Todo',
     Key: {
-        id: todoId
+        id: todoId,
+        task_id: taskId
     },
   };
 
