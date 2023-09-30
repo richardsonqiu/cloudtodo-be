@@ -7,7 +7,7 @@ exports.handler = async (event) => {
   
   const params = {
     TableName: 'Task',
-    Key: { id },
+    Key: id,
   };
 
   try {
