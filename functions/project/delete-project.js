@@ -13,6 +13,8 @@ exports.handler = async (event) => {
   };
 
   try {
+    console.log(`projectId: ${projectId}`);
+    
     await dynamoDb.delete(params).promise();
     return {
       statusCode: 200,
