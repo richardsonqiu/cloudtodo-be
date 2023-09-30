@@ -3,11 +3,13 @@ const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
-  const id = event.pathParameters.id;
+  const projectId = event.pathParameters.projectId;
   
   const params = {
     TableName: 'Project',
-    Key: id,
+    Key: {
+        id: projectId
+    }
   };
 
   try {
