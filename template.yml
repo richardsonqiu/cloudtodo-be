@@ -415,6 +415,28 @@ Resources:
             Path: /projects/{projectId}
             Method: delete
 
+  NotifyDueDate:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-NotifyDueDate"
+      Handler: functions/email/notify-todo-due-date.handler
+      Runtime: nodejs16.x
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        ApiGatewayEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/notify
+            Method: POST
+
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
