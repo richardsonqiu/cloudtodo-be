@@ -108,26 +108,26 @@ Resources:
           Properties:
             Path: /projects/{projectId}/tasks/{taskId}
             Method: get
-  GetSearchTask:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetSearchTask"
-      Handler: functions/task/get-search-tasks.handler
-      Runtime: nodejs16.x
-      Policies: AmazonDynamoDBFullAccess
-      Environment:
-        Variables:
-          NODE_ENV: production
-      Role:
-        Fn::GetAtt:
-          - LambdaExecutionRole
-          - Arn
-      Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /projects/{projectId}/tasks/search
-            Method: get
+  # GetSearchTask:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetSearchTask"
+  #     Handler: functions/task/get-search-tasks.handler
+  #     Runtime: nodejs16.x
+  #     Policies: AmazonDynamoDBFullAccess
+  #     Environment:
+  #       Variables:
+  #         NODE_ENV: production
+  #     Role:
+  #       Fn::GetAtt:
+  #         - LambdaExecutionRole
+  #         - Arn
+  #     Events:
+  #       GetEvent:
+  #         Type: Api
+  #         Properties:
+  #           Path: /projects/{projectId}/tasks/search
+  #           Method: get
   UpdateTask:
     Type: AWS::Serverless::Function
     Properties:
@@ -271,6 +271,47 @@ Resources:
           Properties:
             Path: /projects/{projectId}/tasks/{taskId}/todos/{todoId}
             Method: delete
+  GetSearchTodos:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetSearchTodos"
+      Handler: functions/todo/get-search-todos.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks/search
+            Method: get
+  GetTodosByAssignName:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetTodosByAssignName"
+      Handler: functions/todo/get-todos-by-assign-name.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks/assign
+            Method: get
+
 
   CreateProject:
     Type: AWS::Serverless::Function
@@ -295,7 +336,7 @@ Resources:
   GetProjects:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetProjecs"
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetProjects"
       Handler: functions/project/get-projects.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
