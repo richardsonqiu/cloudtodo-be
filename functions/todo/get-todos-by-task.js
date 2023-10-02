@@ -56,16 +56,16 @@ module.exports.handler = async (event, context, callback) => {
                 id: todo.id,
                 title: todo.title,
                 create_date: todo.create_date,
-                due_date: todo.due_date || null,
-                assign_username: todo.assign_user || null,
-                assign_email: todo.assign_email || null,
-                assign_name: todo.assign_name || null,
+                due_date: todo.due_date || "",
+                assign_username: todo.assign_user || "",
+                assign_email: todo.assign_email || "",
+                assign_name: todo.assign_name || "",
                 is_done: todo.is_done,
-                description: todo.description || null,
-                priority: todo.priority || null,
-                tag1: todo.tag1 || null,
-                tag2: todo.tag2 || null,
-                tag3: todo.tag3 || null
+                description: todo.description || "",
+                priority: todo.priority || "",
+                tag1: todo.tag1 || "",
+                tag2: todo.tag2 || "",
+                tag3: todo.tag3 || ""
             })),
         };
 

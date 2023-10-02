@@ -20,14 +20,14 @@ module.exports.handler = (event, context, callback) => {
             create_date: create_date,
             is_done: false,
             due_date: data?.due_date || new Date(new Date().getTime() + 7 * 24 * 3600 * 1000),
-            assign_username: data?.assign_username || null,
-            assign_email: data?.assign_email || null,
-            assign_name: data?.assign_name || null,
-            description: data?.description || null,
-            priority: data?.priority || null,
-            tag1: data?.tag1 || null,
-            tag2: data?.tag2 || null,
-            tag3: data?.tag3 || null
+            assign_username: data?.assign_username || "",
+            assign_email: data?.assign_email || "",
+            assign_name: data?.assign_name || "",
+            description: data?.description || "",
+            priority: data?.priority || "",
+            tag1: data?.tag1 || "",
+            tag2: data?.tag2 || "",
+            tag3: data?.tag3 || ""
         }
     }
 
