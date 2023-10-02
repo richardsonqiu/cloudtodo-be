@@ -64,7 +64,7 @@ exports.handler = async (event) => {
 
             // Send combined email for each person with their todos
             for (const recipientEmail in todosByRecipient) {
-                const senderEmail = "admin@cloudtodo.com";
+                const senderEmail = "richaws22@gmail.com";
                 const subject = "Your todo dues in ONE day - CloudTodo";
                 const todos = todosByRecipient[recipientEmail]
                     .map((todo) => todo.title)
