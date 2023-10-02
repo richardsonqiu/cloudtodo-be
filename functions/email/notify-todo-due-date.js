@@ -21,6 +21,7 @@ async function sendEmail(senderEmail, recipientEmail, subject, message) {
         },
     };
     console.log("Trying to send email ... ");
+    console.log(senderEmail, recipientEmail, subject, message);
     try {
         const response = await ses.sendEmail(params).promise();
         console.log("Email sent:", response);
@@ -53,6 +54,7 @@ exports.handler = async (event) => {
             for (const todo of result.Items) {
                 console.log(`todo: ${todo}`);
                 const recipientEmail = todo.assign_email;
+                console.log(`recipientEmail: ${recipientEmail}`);
 
                 // Initialize 
                 if (!todosByRecipient[recipientEmail]) {
@@ -61,6 +63,8 @@ exports.handler = async (event) => {
 
                 todosByRecipient[recipientEmail].push(todo);
             }
+
+            console.log(`todosByRecipient: ${todosByRecipient}`);
 
             // Send combined email for each person with their todos
             for (const recipientEmail in todosByRecipient) {
