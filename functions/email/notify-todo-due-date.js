@@ -34,14 +34,17 @@ async function sendEmail(senderEmail, recipientEmail, subject, message) {
 exports.handler = async (event) => {
     try {
         // Calculate the date for 1 day from now
+        const now = new Date();
         const oneDayFromNow = new Date();
         oneDayFromNow.setDate(oneDayFromNow.getDate() + 1);
 
         const params = {
             TableName: "Todo",
-            FilterExpression: "due_date <= :oneDayFromNow",
+            FilterExpression: "due_date <= :oneDayFromNow AND due_date >= :now AND is_done = notDone",
             ExpressionAttributeValues: {
                 ":oneDayFromNow": oneDayFromNow.toISOString(),
+                ":now": now.toISOString(),
+                ":notDone": false
             },
         };
 
@@ -49,10 +52,11 @@ exports.handler = async (event) => {
         
         if (result.Items) {
             // Group todos by assigned person's email
+            console.log(`result.Items: ${JSON.stringify(result.Items)}`);
             const todosByRecipient = {};
 
             for (const todo of result.Items) {
-                console.log(`todo: ${todo}`);
+                console.log(`todo: ${JSON.stringify(todo)}`);
                 const recipientEmail = todo.assign_email;
                 console.log(`recipientEmail: ${recipientEmail}`);
 
@@ -64,7 +68,7 @@ exports.handler = async (event) => {
                 todosByRecipient[recipientEmail].push(todo);
             }
 
-            console.log(`todosByRecipient: ${todosByRecipient}`);
+            console.log(`todosByRecipient: ${JSON.stringify(todosByRecipient)}`);
 
             // Send combined email for each person with their todos
             for (const recipientEmail in todosByRecipient) {
@@ -76,13 +80,19 @@ exports.handler = async (event) => {
                 const message = `Your todos (${todos}) are due in one day.`;
 
                 // Send the email here
-                await sendEmail(senderEmail, recipientEmail, subject, message);
+                const isSent = await sendEmail(senderEmail, recipientEmail, subject, message);
+                if (isSent) {
+                    return {
+                        statusCode: 200,
+                        body: "Emails sent successfully.",
+                    };
+                }
+                
             }
-        }
-
+        } 
         return {
             statusCode: 200,
-            body: "Emails sent successfully.",
+            body: "No todos due within ONE day",
         };
     } catch (error) {
         console.error("Error:", error);
