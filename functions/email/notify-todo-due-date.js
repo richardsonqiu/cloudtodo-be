@@ -30,6 +30,10 @@ async function sendEmail(senderEmail, recipientEmail, subject, message) {
     }
 }
 
+function isValidEmail(email) {
+    const pattern = /^\S+@\S+\.\S+$/;
+    return pattern.test(email);
+  }
 
 exports.handler = async (event) => {
     try {
@@ -74,6 +78,11 @@ exports.handler = async (event) => {
             for (const recipientEmail in todosByRecipient) {
                 const senderEmail = "richaws22@gmail.com";
                 const subject = "Your todo dues in ONE day - CloudTodo";
+                if (recipientEmail == null || !isValidEmail(recipientEmail)) {
+                    console.log(`recipientEmail not valid: ${JSON.stringify(recipientEmail)}`);
+                    continue;
+                } 
+
                 const todos = todosByRecipient[recipientEmail]
                     .map((todo) => todo.title)
                     .join(", ");
