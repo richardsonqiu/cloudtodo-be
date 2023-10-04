@@ -98,51 +98,56 @@ exports.handler = async (event) => {
                 // const message = `Your todos (${todos}) are due in one day.`;
 
 
-                const htmlMessage = `
-                    <html>
-                    <head>
-                        <style>
-                            table {
-                                border-collapse: collapse;
-                                width: 100%;
-                            }
+                // const htmlMessage = `
+                //     <html>
+                //     <head>
+                //         <style>
+                //             table {
+                //                 border-collapse: collapse;
+                //                 width: 100%;
+                //             }
 
-                            th, td {
-                                border: 1px solid #dddddd;
-                                text-align: left;
-                                padding: 8px;
-                            }
+                //             th, td {
+                //                 border: 1px solid #dddddd;
+                //                 text-align: left;
+                //                 padding: 8px;
+                //             }
 
-                            th {
-                                background-color: #f2f2f2;
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        <h1>Here is a list of your upcoming todos and past todos: </h1>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Todo Name</th>
-                                    <th>Due Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${todosByRecipient[recipientEmail].map(todo => `
-                                    <tr>
-                                        <td>${todo.title}</td>
-                                        <td>${todo.due_date}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                        <h2>You can access your todos from here: <a href="https://02n8au99ji.execute-api.ap-southeast-1.amazonaws.com/Prod">CloudTodo</a></h2>
-                    </body>
-                    </html>
-                `;
+                //             th {
+                //                 background-color: #f2f2f2;
+                //             }
+                //         </style>
+                //     </head>
+                //     <body>
+                //         <h1>Here is a list of your upcoming todos and past todos: </h1>
+                //         <table>
+                //             <thead>
+                //                 <tr>
+                //                     <th>Todo Name</th>
+                //                     <th>Due Date</th>
+                //                 </tr>
+                //             </thead>
+                //             <tbody>
+                //                 ${todosByRecipient[recipientEmail].map(todo => `
+                //                     <tr>
+                //                         <td>${todo.title}</td>
+                //                         <td>${todo.due_date}</td>
+                //                     </tr>
+                //                 `).join('\n')}
+                //             </tbody>
+                //         </table>
+                //         <h2>You can access your todos from here: <a href="https://02n8au99ji.execute-api.ap-southeast-1.amazonaws.com/Prod">CloudTodo</a></h2>
+                //     </body>
+                //     </html>
+                // `;
+
+                const message = `${todosByRecipient[recipientEmail].map(todo => `
+                                ${todo.title}`).join('\r\n')}`
+
+                console.log(`message: ${message}`);
 
                 // Send the email here
-                const isSent = await sendEmail(senderEmail, recipientEmail, subject, htmlMessage);
+                const isSent = await sendEmail(senderEmail, recipientEmail, subject, message);
                 if (isSent) {
                     return {
                         statusCode: 200,
