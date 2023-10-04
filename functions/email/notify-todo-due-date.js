@@ -41,7 +41,7 @@ function isValidEmail(email) {
 exports.handler = async (event) => {
     try {
         // Calculate the date for 1 day from now
-        // const now = new Date();
+        const now = new Date();
         const oneDayFromNow = new Date();
         oneDayFromNow.setDate(oneDayFromNow.getDate() + 1);
 
@@ -50,9 +50,10 @@ exports.handler = async (event) => {
 
         const params = {
             TableName: "Todo",
-            FilterExpression: "due_date <= :oneDayFromNow AND due_date <> :emptyString AND is_done = :notDone",
+            FilterExpression: "due_date <= :oneDayFromNow AND due_date >= :now AND due_date <> :emptyString AND is_done = :notDone",
             ExpressionAttributeValues: {
                 ":oneDayFromNow": oneDayFromNow.toISOString(),
+                ":now": now.toISOString(),
                 ":emptyString": emptyString,
                 ":notDone": notDone
             },
@@ -89,60 +90,12 @@ exports.handler = async (event) => {
                     continue;
                 } 
 
-                const todos = todosByRecipient[recipientEmail]
-                    .map((todo) => todo.title)
-                    .join(", ");
-
+                // const todos = todosByRecipient[recipientEmail]
+                //     .map((todo) => todo.title)
+                //     .join(", ");
                 
-                    
-                // const message = `Your todos (${todos}) are due in one day.`;
-
-
-                // const htmlMessage = `
-                //     <html>
-                //     <head>
-                //         <style>
-                //             table {
-                //                 border-collapse: collapse;
-                //                 width: 100%;
-                //             }
-
-                //             th, td {
-                //                 border: 1px solid #dddddd;
-                //                 text-align: left;
-                //                 padding: 8px;
-                //             }
-
-                //             th {
-                //                 background-color: #f2f2f2;
-                //             }
-                //         </style>
-                //     </head>
-                //     <body>
-                //         <h1>Here is a list of your upcoming todos and past todos: </h1>
-                //         <table>
-                //             <thead>
-                //                 <tr>
-                //                     <th>Todo Name</th>
-                //                     <th>Due Date</th>
-                //                 </tr>
-                //             </thead>
-                //             <tbody>
-                //                 ${todosByRecipient[recipientEmail].map(todo => `
-                //                     <tr>
-                //                         <td>${todo.title}</td>
-                //                         <td>${todo.due_date}</td>
-                //                     </tr>
-                //                 `).join('\n')}
-                //             </tbody>
-                //         </table>
-                //         <h2>You can access your todos from here: <a href="https://02n8au99ji.execute-api.ap-southeast-1.amazonaws.com/Prod">CloudTodo</a></h2>
-                //     </body>
-                //     </html>
-                // `;
-
-                const message = `${todosByRecipient[recipientEmail].map(todo => `
-                                ${todo.title}`).join('\r\n')}`
+                const message = `Here are todos that due in ONE day: ${'\n'} ${todosByRecipient[recipientEmail].map(todo => `
+                ${todo.title}`).join('\r\n')}`;
 
                 console.log(`message: ${message}`);
 
@@ -156,11 +109,13 @@ exports.handler = async (event) => {
                 }
                 
             }
-        } 
-        return {
-            statusCode: 200,
-            body: "No todos due within ONE day",
-        };
+        } else {
+            return {
+                statusCode: 200,
+                body: "No todos due within ONE day",
+            };
+        }
+        
     } catch (error) {
         console.error("Error:", error);
         return {
