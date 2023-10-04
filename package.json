@@ -5,15 +5,16 @@
     "private": true,
     "dependencies": {
         "aws-serverless-express": "^3.1.3",
-        "express": "4.16.2"
+        "express": "^4.18.2"
     },
     "devDependencies": {
         "@aws-sdk/client-dynamodb": "^3.423.0",
         "aws-sdk-mock": "^5.8.0",
         "jest": "^29.7.0",
-        "mocha": "5.0.0",
+        "jest-junit": "^16.0.0",
+        "mocha": "^10.2.0",
         "supertest": "3.0.0",
-        "unit.js": "2.0.0"
+        "unit.js": "^2.1.1"
     },
     "scripts": {
         "test": "mocha --recursive tests"
