@@ -45,13 +45,16 @@ exports.handler = async (event) => {
         const oneDayFromNow = new Date();
         oneDayFromNow.setDate(oneDayFromNow.getDate() + 1);
 
+        const emptyString = "";
+        const notDone = false;
+
         const params = {
             TableName: "Todo",
             FilterExpression: "due_date <= :oneDayFromNow AND due_date <> :emptyString AND is_done = :notDone",
             ExpressionAttributeValues: {
                 ":oneDayFromNow": oneDayFromNow.toISOString(),
-                ":emptyString": "",
-                ":notDone": false
+                ":emptyString": emptyString,
+                ":notDone": notDone
             },
         };
 
