@@ -94,9 +94,14 @@ exports.handler = async (event) => {
                 //     .map((todo) => todo.title)
                 //     .join(", ");
                 
-                const message = `Here are todos that due in ONE day: \n${todosByRecipient[recipientEmail].map(todo => 
-                ${todo.title}).join('\r\n')}`;
+                // const message = `Here are todos that due in ONE day: \n${todosByRecipient[recipientEmail].map(todo => 
+                // ${todo.title}).join('\r\n')}`;
 
+                const todos = todosByRecipient[recipientEmail]
+                    .map((todo) => todo.title)
+                    .join("\r\n");
+
+                const message = `Here are todos that due in ONE day: \n${todos}`;
 
                 console.log(`message: ${message}`);
 
