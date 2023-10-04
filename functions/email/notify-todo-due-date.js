@@ -3,6 +3,9 @@ const AWS = require("aws-sdk");
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const ses = new AWS.SES({ region: "ap-southeast-1" });
 
+
+
+
 async function sendEmail(senderEmail, recipientEmail, subject, message) {
     const params = {
         Source: senderEmail,
@@ -38,16 +41,15 @@ function isValidEmail(email) {
 exports.handler = async (event) => {
     try {
         // Calculate the date for 1 day from now
-        const now = new Date();
+        // const now = new Date();
         const oneDayFromNow = new Date();
         oneDayFromNow.setDate(oneDayFromNow.getDate() + 1);
 
         const params = {
             TableName: "Todo",
-            FilterExpression: "due_date <= :oneDayFromNow AND due_date >= :now AND due_date != emptyString AND is_done = notDone",
+            FilterExpression: "due_date <= :oneDayFromNow AND due_date != emptyString AND is_done = notDone",
             ExpressionAttributeValues: {
                 ":oneDayFromNow": oneDayFromNow.toISOString(),
-                ":now": now.toISOString(),
                 ":emptyString": "",
                 ":notDone": false
             },
@@ -87,10 +89,57 @@ exports.handler = async (event) => {
                 const todos = todosByRecipient[recipientEmail]
                     .map((todo) => todo.title)
                     .join(", ");
-                const message = `Your todos (${todos}) are due in one day.`;
+
+                
+                    
+                // const message = `Your todos (${todos}) are due in one day.`;
+
+
+                const htmlMessage = `
+                    <html>
+                    <head>
+                        <style>
+                            table {
+                                border-collapse: collapse;
+                                width: 100%;
+                            }
+
+                            th, td {
+                                border: 1px solid #dddddd;
+                                text-align: left;
+                                padding: 8px;
+                            }
+
+                            th {
+                                background-color: #f2f2f2;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>Here is a list of your upcoming todos and past todos: </h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Todo Name</th>
+                                    <th>Due Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${todosByRecipient[recipientEmail].map(todo => `
+                                    <tr>
+                                        <td>${todo.title}</td>
+                                        <td>${todo.due_date}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                        <h2>You can access your todos from here: <a href="https://02n8au99ji.execute-api.ap-southeast-1.amazonaws.com/Prod">CloudTodo</a></h2>
+                    </body>
+                    </html>
+                `;
 
                 // Send the email here
-                const isSent = await sendEmail(senderEmail, recipientEmail, subject, message);
+                const isSent = await sendEmail(senderEmail, recipientEmail, subject, htmlMessage);
                 if (isSent) {
                     return {
                         statusCode: 200,
