@@ -1,6 +1,6 @@
 {
-    "name": "express-HelloWorld",
-    "description": "Hello World ExpressJS WebService",
+    "name": "CloudTodo",
+    "description": "CloudTodo Backend Lambda Service",
     "version": "0.0.1",
     "private": true,
     "dependencies": {
@@ -17,6 +17,6 @@
         "unit.js": "^2.1.1"
     },
     "scripts": {
-        "test": "mocha --recursive tests"
+        "test": "jest"
     }
 }
