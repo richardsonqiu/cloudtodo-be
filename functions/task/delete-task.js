@@ -1,6 +1,7 @@
 'use-strict'
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
+AWS.config.update({ region: 'ap-southeast-1' }); 
 
 exports.handler = async (event) => {
   const taskId = event.pathParameters.taskId;
