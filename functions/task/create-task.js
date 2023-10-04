@@ -25,7 +25,7 @@ module.exports.handler = (event, context, callback) => {
         Item: {
             id: uuid.v4(),
             project_id: project_id,
-            title: data?.title,
+            title: data.title,
             create_date: create_date,
             is_done: false,
         }
