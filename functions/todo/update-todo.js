@@ -13,6 +13,7 @@ module.exports.handler = (event, context, callback) => {
     TableName: 'Todo',
     Key: {
       id: event.pathParameters.todoId,
+      task_id: taskId
     },
     ExpressionAttributeValues: {
       ':title': data.title,
