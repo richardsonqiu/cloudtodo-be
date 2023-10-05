@@ -99,10 +99,10 @@ exports.handler = async (event) => {
 
                 const todos = todosByRecipient[recipientEmail]
                     .map((todo) => todo.title)
-                    .join("\r\n");
+                    .join("\n");
 
                 const message = `Here are todos that due in ONE day: \n${todos}`;
-
+                // const message = `Your todos (${todos}) are due in one day.`;
                 console.log(`message: ${message}`);
 
                 // Send the email here
