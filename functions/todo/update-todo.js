@@ -27,10 +27,9 @@ module.exports.handler = (event, context, callback) => {
       ':tag1': data?.tag1 || "",
       ':tag2': data?.tag2 || "",
       ':tag3': data?.tag3 || "",
-      ':updated_date': timestamp,
-      ':task_id': taskId
+      ':updated_date': timestamp
     },
-    UpdateExpression: 'SET title = :title, is_done = :is_done, due_date = :due_date, assign_username = :assign_username, assign_email = :assign_email, assign_name = :assign_name, description = :description, priority = :priority, tag1 = :tag1, tag2 = :tag2, tag3 = :tag3, updated_date = :updated_date, task_id = :task_id',
+    UpdateExpression: 'SET title = :title, is_done = :is_done, due_date = :due_date, assign_username = :assign_username, assign_email = :assign_email, assign_name = :assign_name, description = :description, priority = :priority, tag1 = :tag1, tag2 = :tag2, tag3 = :tag3, updated_date = :updated_date',
     ReturnValues: 'ALL_NEW',
   };
 
