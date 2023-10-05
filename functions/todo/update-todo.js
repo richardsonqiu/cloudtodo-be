@@ -7,6 +7,7 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 module.exports.handler = (event, context, callback) => {
   const timestamp = new Date().toISOString();
   const data = JSON.parse(event.body);
+  const taskId = event.pathParameters.taskId;
 
   const params = {
     TableName: 'Todo',
@@ -26,8 +27,9 @@ module.exports.handler = (event, context, callback) => {
       ':tag2': data?.tag2 || "",
       ':tag3': data?.tag3 || "",
       ':updated_date': timestamp,
+      ':task_id': taskId
     },
-    UpdateExpression: 'SET title = :title, is_done = :is_done, due_date = :due_date, assign_username = :assign_username, assign_email = :assign_email, assign_name = :assign_name, description = :description, priority = :priority, tag1 = :tag1, tag2 = :tag2, tag3 = :tag3, updated_date = :updated_date',
+    UpdateExpression: 'SET title = :title, is_done = :is_done, due_date = :due_date, assign_username = :assign_username, assign_email = :assign_email, assign_name = :assign_name, description = :description, priority = :priority, tag1 = :tag1, tag2 = :tag2, tag3 = :tag3, updated_date = :updated_date, task_id = :task_id',
     ReturnValues: 'ALL_NEW',
   };
 
