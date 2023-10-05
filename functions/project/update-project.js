@@ -11,7 +11,7 @@ module.exports.handler = (event, context, callback) => {
   const params = {
     TableName: 'Project',
     Key: {
-      project_id: event.pathParameters.projectId,
+      id: event.pathParameters.projectId,
     },
     ExpressionAttributeValues: {
       ':title': data.title,
