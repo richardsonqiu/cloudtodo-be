@@ -13,12 +13,15 @@ module.exports.handler = (event, context, callback) => {
     Key: {
       project_id: event.pathParameters.projectId,
     },
+    ExpressionAttributeNames: {
+      '#n': 'name'
+    },
     ExpressionAttributeValues: {
       ':name': data.name,
       ':members': data.members,
       ':updated_date': timestamp,
     },
-    UpdateExpression: 'SET name = :name, members = :members, updated_date = :updated_date',
+    UpdateExpression: 'SET #n = :name, members = :members, updated_date = :updated_date',
     ReturnValues: 'ALL_NEW',
   };
 
