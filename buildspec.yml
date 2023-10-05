@@ -3,10 +3,10 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14
+      nodejs: 18
     commands:
       # Install dependencies needed for running tests
-      - n 14.18.3
+      # - n 14.18.3
       - npm install -g npm@latest
 
       # Upgrade AWS CLI to the latest version
