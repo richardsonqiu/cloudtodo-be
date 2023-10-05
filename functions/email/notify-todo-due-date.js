@@ -101,7 +101,7 @@ exports.handler = async (event) => {
                     .map((todo) => todo.title)
                     .join("\n");
 
-                const message = `Here are todos that due in ONE day: \n${todos}`;
+                const message = `Gentle reminder of your todos due soon: ${todos}`;
                 // const message = `Your todos (${todos}) are due in one day.`;
                 console.log(`message: ${message}`);
 
