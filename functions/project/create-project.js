@@ -12,7 +12,7 @@ module.exports.handler = (event, context, callback) => {
         TableName: "Project",
         Item: {
             id: uuid.v4(),
-            name: data?.name,
+            title: data?.title,
             create_date: create_date,
             members: data?.members,
         }
