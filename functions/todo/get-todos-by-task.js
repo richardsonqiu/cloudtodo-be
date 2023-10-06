@@ -37,14 +37,16 @@ module.exports.handler = async (event, context, callback) => {
         // Step 2: Query the Todo table to retrieve associated todos for the task
         const todoParams = {
             TableName: 'Todo',
-            FilterExpression: 'task_id = :taskId',
+            IndexName: "task_id-create_date-index",
+            KeyConditionExpression: "task_id = :taskId",
             ExpressionAttributeValues: {
                 ':taskId': taskId,
-            },
-        };
+            }
+          };
 
         const todoResult = await dynamoDb.query(todoParams).promise();
         const todoItems = todoResult.Items;
+        console.log(`todoResult: ${JSON.stringify(todoResult)}`);
         console.log(`todoItems: ${JSON.stringify(todoItems)}`);
 
 
