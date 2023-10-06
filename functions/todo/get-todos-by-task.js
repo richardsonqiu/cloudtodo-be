@@ -17,6 +17,7 @@ module.exports.handler = async (event, context, callback) => {
 
         const taskQueryResult = await dynamoDb.query(taskQueryParams).promise();
         const taskItem = taskQueryResult.Items[0];
+        console.log(`taskItem: ${JSON.stringify(taskItem)}`);
 
         if (!taskItem) {
             // Handle the case where the task with the provided ID does not exist
@@ -44,6 +45,8 @@ module.exports.handler = async (event, context, callback) => {
 
         const todoResult = await dynamoDb.query(todoParams).promise();
         const todoItems = todoResult.Items;
+        console.log(`todoItems: ${JSON.stringify(todoItems)}`);
+
 
         // Combine the data and add it to the result
         const taskWithTodos = {

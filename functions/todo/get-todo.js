@@ -7,7 +7,8 @@ module.exports.handler = (event, context, callback) => {
     const params = {
         TableName: 'Todo',
         Key: {
-            id: event.pathParameters.todoId
+            id: event.pathParameters.todoId,
+            task_id: event.pathParameters.taskId
         }
     }
 
@@ -24,7 +25,7 @@ module.exports.handler = (event, context, callback) => {
               return;
         }
 
-        console.log(result);
+        console.log(JSON.stringify(result));
         const response = {
             statusCode: 200,
             headers: {
