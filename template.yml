@@ -437,6 +437,27 @@ Resources:
             Path: /projects/{projectId}/notify
             Method: POST
 
+  GetUsers:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetUsers"
+      Handler: functions/todo/get-users.handler
+      Runtime: nodejs16.x
+      Policies: AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::GetAtt:
+          - LambdaExecutionRole
+          - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /users
+            Method: get
+
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role

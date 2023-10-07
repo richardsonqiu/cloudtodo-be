@@ -15,20 +15,24 @@ const params = {
 
 try {
     const data = await cognito.listUsers(params).promise();
+    console.log(`data: ${data}`);
     const users = data.Users;
+    console.log(`users: ${users}`);
 
     const usersWithAttributes = users.map((user) => {
-    const userAttributes = {};
+        const userAttributes = {};
 
-    user.Attributes.forEach((attribute) => {
-        userAttributes[attribute.Name] = attribute.Value;
+        user.Attributes.forEach((attribute) => {
+            userAttributes[attribute.Name] = attribute.Value;
+        });
+
+        return {
+            username: user.Username,
+            userAttributes: userAttributes,
+        };
     });
 
-    return {
-        username: user.Username,
-        userAttributes: userAttributes,
-    };
-    });
+    console.log(`users with attributes: ${usersWithAttributes}`);
 
     const response = {
     statusCode: 200,
