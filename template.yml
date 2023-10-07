@@ -441,7 +441,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub "awscodestar-${ProjectId}-lambda-GetUsers"
-      Handler: functions/todo/get-users.handler
+      Handler: functions/user/get-users.handler
       Runtime: nodejs16.x
       Policies: AmazonDynamoDBFullAccess
       Environment:
