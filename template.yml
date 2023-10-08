@@ -24,7 +24,7 @@ Globals:
       Role: !Ref CodeDeployRole
   Api:
     Cors:
-      AllowMethods: "'GET,POST,OPTIONS,PUT'"
+      AllowMethods: "'GET,POST,OPTIONS,PUT,DELETE'"
       AllowHeaders: "'Authorization,content-type'"
       AllowOrigin: "'*'"
 Resources:
