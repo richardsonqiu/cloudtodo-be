@@ -19,7 +19,7 @@ module.exports.handler = (event, context, callback) => {
             title: data?.title,
             create_date: create_date,
             is_done: false,
-            due_date: data?.due_date || new Date(new Date().getTime() + 7 * 24 * 3600 * 1000),
+            due_date: data?.due_date || "",
             assign_username: data?.assign_username || "",
             assign_email: data?.assign_email || "",
             assign_name: data?.assign_name || "",
