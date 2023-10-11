@@ -14,6 +14,7 @@ Parameters:
     Type: String
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
     Default: ""
+  Region: "ap-southeast-1"
 
 Globals:
   Function:
@@ -22,6 +23,8 @@ Globals:
       Enabled: true
       Type: Canary10Percent5Minutes
       Role: !Ref CodeDeployRole
+    Layers:
+      - !Sub "arn:aws:lambda:ap-southeast-1:580247275435:layer:LambdaInsightsExtension:38"
   Api:
     Cors:
       AllowMethods: "'GET,POST,OPTIONS,PUT,DELETE'"
@@ -38,6 +41,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -78,6 +82,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -98,6 +103,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -138,6 +144,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -159,6 +166,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -200,6 +208,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -220,6 +229,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -261,6 +271,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -301,6 +312,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -343,6 +355,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -404,6 +417,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -447,6 +461,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Role:
         Fn::GetAtt:
           - LambdaExecutionRole
@@ -472,4 +487,4 @@ Resources:
       Path: /
       ManagedPolicyArns:
         - !Sub "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-      PermissionsBoundary: !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary"
+      # PermissionsBoundary: !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary"
