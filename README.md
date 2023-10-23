@@ -1,5 +1,7 @@
 Hello NUS ISS!!!
 
+This is repository for CloudTodo Backend.
+
 Welcome to the AWS CodeStar sample web service
 ==============================================
 
